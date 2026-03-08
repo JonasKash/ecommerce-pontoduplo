@@ -21,6 +21,11 @@ export default async function handler(req, res) {
     const supabaseUrl = 'https://wfhlesxzmdibdtlkfona.supabase.co';
     const supabaseKey = process.env.SUPABASE_SECRET_KEY;
 
+    if (!supabaseKey) {
+        console.error('SUPABASE_SECRET_KEY is missing in environment variables');
+        return res.status(500).json({ error: 'Configuração ausente: SUPABASE_SECRET_KEY não encontrada na Vercel.' });
+    }
+
     try {
         const payload = req.body;
 
@@ -29,27 +34,27 @@ export default async function handler(req, res) {
             Object.entries(payload).filter(([_, v]) => v !== '' && v !== null && v !== undefined)
         );
 
-        // Call Supabase REST API directly
-        const response = await fetch(`${supabaseUrl}/rest/v1/leads`, {
+        // Use the on_conflict query parameter to ensure we update the row by session_id
+        const response = await fetch(`${supabaseUrl}/rest/v1/leads?on_conflict=session_id`, {
             method: 'POST',
             headers: {
                 'apikey': supabaseKey,
                 'Authorization': `Bearer ${supabaseKey}`,
                 'Content-Type': 'application/json',
-                'Prefer': 'resolution=merge-duplicates' // Requires a UNIQUE constraint on session_id in the database
+                'Prefer': 'resolution=merge-duplicates'
             },
             body: JSON.stringify(cleanPayload)
         });
 
         if (!response.ok) {
-            const errorData = await response.text();
-            console.error('Supabase Error:', response.status, errorData);
-            return res.status(response.status).json({ error: 'Failed to insert to Supabase' });
+            const errorText = await response.text();
+            console.error('Supabase API Error:', response.status, errorText);
+            return res.status(response.status).json({ error: 'Supabase failure', details: errorText });
         }
 
         return res.status(200).json({ success: true });
     } catch (error) {
-        console.error('API Capture Error:', error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Capture API Exception:', error);
+        return res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 }

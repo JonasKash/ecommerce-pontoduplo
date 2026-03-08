@@ -604,7 +604,8 @@
             localStorage.setItem('vr_session_id', vrSessionId);
         }
 
-        function captureLead(statusMsg, extraData = {}) {
+        async function captureLead(statusMsg, extraData = {}) {
+            console.log('Capturando lead:', statusMsg);
             const payload = {
                 session_id: vrSessionId,
                 status: statusMsg,
@@ -621,12 +622,14 @@
                 ...extraData
             };
             try {
-                fetch('/api/capture', {
+                await fetch('/api/capture', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-            } catch (e) { }
+            } catch (e) {
+                console.error('Erro na captura:', e);
+            }
         }
 
         // Registrar abertura do checkout
@@ -669,7 +672,7 @@
         });
 
         // Navigation
-        function goToStep2() {
+        async function goToStep2() {
             if (!document.getElementById('nome').value || !document.getElementById('email').value || !document.getElementById('cpf').value) {
                 alert("Preencha todos os campos obrigatórios.");
                 return;
@@ -679,7 +682,7 @@
             document.getElementById('step1-num').innerHTML = '✓';
 
             document.getElementById('step2-box').classList.add('active');
-            captureLead('checkout_step1');
+            await captureLead('checkout_step1');
         }
 
         function checkCEP() {
@@ -690,7 +693,7 @@
             }
         }
 
-        function goToStep3() {
+        async function goToStep3() {
             if (document.getElementById('cep').value.replace(/\D/g, '').length < 8) {
                 alert("Preencha o CEP corretamente.");
                 return;
@@ -700,7 +703,7 @@
             document.getElementById('step2-num').innerHTML = '✓';
 
             document.getElementById('step3-box').classList.add('active');
-            captureLead('checkout_step2');
+            await captureLead('checkout_step2');
         }
 
         async function generatePix() {
