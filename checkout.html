@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout Seguro | Rosa Dupla</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* RESET & BASE */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #764bab;
+            /* Purple from Apadileta */
+            --primary-dark: #633f8f;
+            --bg: #f4f6f8;
+            --text: #333;
+            --text-muted: #777;
+            --border: #e0e0e0;
+            --white: #ffffff;
+            --green: #29c77c;
+            --green-dark: #22a969;
+            --light-green: #e9fbf2;
+            --font: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* HEADER & TIMER */
+        header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-secure {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .timer-bar {
+            background: var(--primary-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .timer-bar span {
+            color: #ffd700;
+        }
+
+        /* LAYOUT */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media(min-width: 800px) {
+            .container {
+                grid-template-columns: 1.5fr 1fr;
+            }
+        }
+
+        /* STEPS BOXES */
+        .step-box {
+            background: var(--white);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .step-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            border-bottom: 1px solid transparent;
+        }
+
+        .step-header.active {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #ccc;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .step-box.active .step-number {
+            background: var(--text);
+        }
+
+        .step-box.completed .step-number {
+            background: var(--green);
+        }
+
+        .step-content {
+            padding: 20px;
+            display: none;
+        }
+
+        .step-box.active .step-content {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: var(--font);
+            font-size: 14px;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .row>* {
+            flex: 1;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--green);
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            font-family: var(--font);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+            transition: background .2s;
+        }
+
+        .btn:hover {
+            background: var(--green-dark);
+        }
+
+        /* SUMMARY RIGHT COLUMN */
+        .summary-box {
+            background: var(--white);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .summary-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 800;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .summary-total span:last-child {
+            color: var(--green);
+        }
+
+        .product-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .product-row img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .product-details {
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* PIX PAYLOAD / QR CODE */
+        .pix-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .pix-container img {
+            margin: 0 auto 16px;
+            width: 200px;
+            height: 200px;
+        }
+
+        .copy-paste-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 11px;
+            word-break: break-all;
+            margin-bottom: 16px;
+            max-height: 80px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 11px;
+            color: #ddd;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .footer-icons div {
+            background: #fff;
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 9px;
+        }
+
+        /* loading overlay */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-logo">🦋 Neres Brasil</div>
+        <div class="header-secure">🔒 Pagamento<br>100% Seguro</div>
+    </header>
+
+    <div class="timer-bar">
+        ⏱ Oferta termina em: <span id="timer">14:59</span>
+    </div>
+
+    <div class="container">
+        <div class="checkout-steps">
+
+            <!-- STEP 1: IDENTIFICAÇÃO -->
+            <div class="step-box active" id="step1-box">
+                <div class="step-header">
+                    <div class="step-number" id="step1-num">1</div>
+                    Identificação
+                </div>
+                <div class="step-content" id="step1-content">
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">Utilizaremos seu e-mail
+                        para: identificar seu perfil, histórico de compra, notificação de pedidos e carrinho de compras.
+                    </p>
+                    <div class="form-group">
+                        <label>Nome completo</label>
+                        <input type="text" id="nome" class="form-control" placeholder="ex.: Maria de Almeida Cruz"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail</label>
+                        <input type="email" id="email" class="form-control" placeholder="ex.: maria@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" id="cpf" class="form-control" placeholder="000.000.000-00" maxlength="14"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label>Celular / WhatsApp</label>
+                        <input type="text" id="celular" class="form-control" placeholder="(00) 00000-0000"
+                            maxlength="15" required>
+                    </div>
+                    <button class="btn" onclick="goToStep2()">Ir para Entrega</button>
+                </div>
+            </div>
+
+            <!-- STEP 2: ENTREGA -->
+            <div class="step-box" id="step2-box">
+                <div class="step-header">
+                    <div class="step-number" id="step2-num">2</div>
+                    Entrega
+                </div>
+                <div class="step-content" id="step2-content">
+                    <div class="form-group">
+                        <label>CEP</label>
+                        <input type="text" id="cep" class="form-control" placeholder="00000-000" maxlength="9" required
+                            onblur="checkCEP()">
+                    </div>
+                    <div id="endereco-fields" style="display:none;">
+                        <div class="form-group">
+                            <label>Endereço</label>
+                            <input type="text" class="form-control" placeholder="Rua / Avenida" required>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Número</label>
+                                <input type="text" class="form-control" placeholder="Ex: 123" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Bairro</label>
+                                <input type="text" class="form-control" placeholder="Bairro" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Complemento (opcional)</label>
+                            <input type="text" class="form-control" placeholder="Apto, Bloco...">
+                        </div>
+                    </div>
+
+                    <div id="frete-opcoes"
+                        style="display:none; background:var(--light-green); border:1px solid var(--green); padding:14px; border-radius:6px; margin-bottom:16px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <strong style="color:var(--green-dark);">✔ Frete padrão</strong><br>
+                                <span style="font-size:12px; color:var(--text-muted);">até 13 dias úteis</span>
+                            </div>
+                            <strong style="color:var(--green-dark);">Grátis</strong>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="goToStep3()">Ir para Pagamento</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: PAGAMENTO -->
+            <div class="step-box" id="step3-box">
+                <div class="step-header">
+                    <div class="step-number" id="step3-num">3</div>
+                    Pagamento
+                </div>
+                <div class="step-content" id="step3-content">
+                    <div
+                        style="border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:20px;">
+                        <div
+                            style="padding:16px; background:#fafafa; border-bottom:1px solid var(--border); display:flex; gap:10px; align-items:center;">
+                            <input type="radio" checked> <strong>Pix</strong>
+                        </div>
+                        <div style="padding:20px; text-align:center;">
+                            <p style="font-size:13px; font-weight:600; margin-bottom:10px;">A confirmação do pagamento é
+                                realizada em poucos minutos. Utilize o aplicativo do seu banco para pagar.</p>
+                            <p style="font-weight:800; color:var(--green); font-size:16px; margin-bottom:20px;">Valor no
+                                Pix: R$ 67,00</p>
+
+                            <div
+                                style="background:#fff7b0; color:#8a6d3b; padding:10px; border-radius:6px; font-size:12px; font-weight:700; display:inline-block; margin-bottom:20px;">
+                                🎉 VOCÊ TEM 1 OFERTA!</div>
+
+                            <button class="btn" style="background:#ff4d4d;" onclick="generatePix()">Finalizar
+                                Compra</button>
+                            <p style="font-size:11px; color:var(--text-muted); margin-top:12px;">🔒 Pagamento seguro
+                                processado por Mercado Pago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: QR CODE GERADO -->
+            <div class="step-box" id="step4-box" style="display:none;">
+                <div class="step-content" style="display:block;">
+                    <div class="pix-container">
+                        <h2 style="font-size:22px; font-weight:800; margin-bottom:8px;">Quase lá...</h2>
+                        <p style="font-size:14px; color:var(--text-muted); margin-bottom:24px;">Pague seu Pix dentro de
+                            <strong id="pix-timer">29:52</strong> para garantir sua compra.</p>
+
+                        <p style="font-size:13px; font-weight:600; margin-bottom:16px;">Cole o código abaixo no seu
+                            banco (Pix Copia e Cola):</p>
+                        <div class="copy-paste-box" id="pix-copiacola">Gerando código...</div>
+                        <button class="btn" onclick="copiarPix()" style="margin-bottom:24px;">📋 Copiar código</button>
+
+                        <p style="font-size:13px; font-weight:600; margin-bottom:16px;">Ou escaneie o QR Code:</p>
+                        <img id="pix-qrcode" src="" alt="QR Code PIX">
+
+                        <p style="font-weight:800; color:var(--green); font-size:18px;">Valor do Pix: R$ 67,00</p>
+                        <p style="font-size:11px; color:var(--text-muted); margin-top:20px;">Pix processado por Mercado
+                            Pago</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div>
+            <div class="summary-box">
+                <h3 class="summary-title">Resumo</h3>
+                <div class="summary-line">
+                    <span>Produtos</span>
+                    <span>R$ 134,00</span>
+                </div>
+                <div class="summary-line">
+                    <span>Desconto</span>
+                    <span style="color:var(--green)">- R$ 67,00</span>
+                </div>
+                <div class="summary-line">
+                    <span>Frete</span>
+                    <span style="color:var(--text); font-weight:600;">Grátis</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>R$ 67,00</span>
+                </div>
+
+                <div class="product-row">
+                    <img src="VGHLCBcg8IUHff1o.jpg" alt="Rosa Dupla">
+                    <div class="product-details">
+                        <div class="product-name">Rosa Dupla Prazer + Promoção [1]</div>
+                        <div class="product-price">R$ 67,00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Mocks -->
+            <div class="summary-box" style="padding:16px;">
+                <div
+                    style="display:flex; gap:10px; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:16px;">
+                    <div
+                        style="width:40px;height:40px;border-radius:50%;background:#ccc;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;">
+                        S</div>
+                    <div>
+                        <div style="color:#f5b301;font-size:10px;">★★★★★</div>
+                        <div style="font-size:11px;font-weight:700;">Silvana Ramos</div>
+                        <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Recomendo às minhas
+                            pacientes, ajuda na lubrificação e estimulação natural. Seguro e discreta a embalagem.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-icons">
+            <div>VISA</div>
+            <div>MSTR</div>
+            <div>PIX</div>
+            <div>BOLETO</div>
+        </div>
+        <p>Neres Brasil<br>
+            © 2026 NERES BRASIL COMERCIO E BEM ESTAR LTDA - CNPJ: 00.000.000/0001-00</p>
+        <div style="margin-top:10px;">🔒 PAGAMENTO 100% SEGURO</div>
+    </footer>
+
+    <div id="loading">
+        <div class="spinner"></div>
+        <p style="font-weight:700; color:var(--primary);">Gerando seu PIX seguro...</p>
+        <p style="font-size:12px; color:#555;">Aguarde um instante.</p>
+    </div>
+
+    <script>
+        // Timer
+        let secondsLeft = 14 * 60 + 59;
+        setInterval(() => {
+            secondsLeft--;
+            if (secondsLeft < 0) secondsLeft = 0;
+            let m = Math.floor(secondsLeft / 60);
+            let s = secondsLeft % 60;
+            document.getElementById('timer').innerText = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+        }, 1000);
+
+        // Masks
+        const cpfInput = document.getElementById('cpf');
+        cpfInput.addEventListener('input', function () {
+            let v = this.value.replace(/\D/g, '');
+            if (v.length > 9) v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+            else if (v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+            else if (v.length > 3) v = v.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+            this.value = v;
+        });
+
+        const celInput = document.getElementById('celular');
+        celInput.addEventListener('input', function () {
+            let v = this.value.replace(/\D/g, '');
+            if (v.length > 10) v = v.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+            else if (v.length > 6) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+            else if (v.length > 2) v = v.replace(/(\d{2})(\d{0,5})/, "($1) $2");
+            this.value = v;
+        });
+
+        const cepInput = document.getElementById('cep');
+        cepInput.addEventListener('input', function () {
+            let v = this.value.replace(/\D/g, '');
+            if (v.length > 5) v = v.slice(0, 5) + '-' + v.slice(5, 8);
+            this.value = v;
+        });
+
+        // Navigation
+        function goToStep2() {
+            if (!document.getElementById('nome').value || !document.getElementById('email').value || !document.getElementById('cpf').value) {
+                alert("Preencha todos os campos obrigatórios.");
+                return;
+            }
+            document.getElementById('step1-box').classList.remove('active');
+            document.getElementById('step1-box').classList.add('completed');
+            document.getElementById('step1-num').innerHTML = '✓';
+
+            document.getElementById('step2-box').classList.add('active');
+        }
+
+        function checkCEP() {
+            let cep = document.getElementById('cep').value.replace(/\D/g, '');
+            if (cep.length === 8) {
+                document.getElementById('endereco-fields').style.display = 'block';
+                document.getElementById('frete-opcoes').style.display = 'block';
+            }
+        }
+
+        function goToStep3() {
+            if (document.getElementById('cep').value.replace(/\D/g, '').length < 8) {
+                alert("Preencha o CEP corretamente.");
+                return;
+            }
+            document.getElementById('step2-box').classList.remove('active');
+            document.getElementById('step2-box').classList.add('completed');
+            document.getElementById('step2-num').innerHTML = '✓';
+
+            document.getElementById('step3-box').classList.add('active');
+        }
+
+        async function generatePix() {
+            document.getElementById('loading').style.display = 'flex';
+
+            const payload = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                cpf: document.getElementById('cpf').value,
+                valor: 67.00
+            };
+
+            try {
+                const response = await fetch('/api/create-pix', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.pix) {
+                    // Hide previous steps
+                    document.getElementById('step1-box').style.display = 'none';
+                    document.getElementById('step2-box').style.display = 'none';
+                    document.getElementById('step3-box').style.display = 'none';
+
+                    // Show step 4
+                    document.getElementById('step4-box').style.display = 'block';
+
+                    // Populate PIX
+                    document.getElementById('pix-copiacola').innerText = data.pix.qrCode;
+                    document.getElementById('pix-qrcode').src = "data:image/jpeg;base64," + data.pix.qrCodeBase64;
+
+                } else {
+                    alert('Erro ao gerar o PIX: ' + (data.error || 'Tente novamente.'));
+                }
+            } catch (err) {
+                alert('Falha na comunicação com o servidor.');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        function copiarPix() {
+            const code = document.getElementById('pix-copiacola').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Código Pix copiado!");
+            }).catch(() => {
+                alert("Falha ao copiar. Selecione o texto manualmente.");
+            });
+        }
+    </script>
+</body>
+
+</html>
