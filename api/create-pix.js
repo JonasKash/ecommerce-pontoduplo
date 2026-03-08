@@ -1,9 +1,9 @@
 // api/create-pix.js
 import { MercadoPagoConfig, Payment } from 'mercadopago';
 
-// Instancie o Mercado Pago usando o Access Token fornecido na API
+// Instancie o Mercado Pago usando a variável de ambiente
 const client = new MercadoPagoConfig({
-    accessToken: 'APP_USR-7375924962821708-062220-ed6219793d03da4b29bdd1545b0b8b8e-315320666'
+    accessToken: process.env.MP_ACCESS_TOKEN
 });
 const payment = new Payment(client);
 
