@@ -74,18 +74,35 @@ export default async function handler(req, res) {
 
         const paymentResponse = await payment.create(paymentData);
 
+        if (!paymentResponse.id) {
+            console.error('Resposta MP sem ID:', paymentResponse);
+            return res.status(400).json({ error: 'Mercado Pago não retornou ID de pagamento', details: paymentResponse });
+        }
+
         const pixData = {
             paymentId: paymentResponse.id,
             status: paymentResponse.status,
-            qrCode: paymentResponse.point_of_interaction.transaction_data.qr_code,
-            qrCodeBase64: paymentResponse.point_of_interaction.transaction_data.qr_code_base64
+            qrCode: paymentResponse.point_of_interaction?.transaction_data?.qr_code,
+            qrCodeBase64: paymentResponse.point_of_interaction?.transaction_data?.qr_code_base64
         };
+
+        if (!pixData.qrCode) {
+            console.error('Dados do PIX ausentes na resposta:', paymentResponse);
+            return res.status(400).json({ error: 'Dados do PIX (QR Code) não encontrados na resposta do Mercado Pago.', details: paymentResponse });
+        }
 
         return res.status(200).json({ success: true, pix: pixData });
 
     } catch (error) {
         console.error('Erro ao processar PIX:', error);
-        const errorMessage = error.message || 'Erro interno no servidor.';
-        return res.status(500).json({ error: 'Erro ao gerar PIX: SIM-9999', details: errorMessage });
+
+        // Tenta extrair detalhes específicos do erro do SDK do Mercado Pago
+        const mpErrorDetails = error.apiResponse?.data || error.message || 'Erro desconhecido';
+
+        return res.status(500).json({
+            error: 'Erro ao gerar PIX: SIM-9999',
+            message: 'Houve um problema na comunicação com o Mercado Pago.',
+            details: mpErrorDetails
+        });
     }
 }
