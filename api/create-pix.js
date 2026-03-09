@@ -99,6 +99,8 @@ export default async function handler(req, res) {
         // Tenta extrair detalhes específicos do erro do SDK do Mercado Pago
         const mpErrorDetails = error.apiResponse?.data || error.message || 'Erro desconhecido';
 
+        console.error('DETALHES DO ERRO MP:', JSON.stringify(mpErrorDetails, null, 2));
+
         return res.status(500).json({
             error: 'Erro ao gerar PIX: SIM-9999',
             message: 'Houve um problema na comunicação com o Mercado Pago.',

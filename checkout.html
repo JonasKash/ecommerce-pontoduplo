@@ -530,8 +530,8 @@
                                 style="background:#fff7b0; color:#8a6d3b; padding:10px; border-radius:6px; font-size:12px; font-weight:700; display:inline-block; margin-bottom:20px;">
                                 🎉 VOCÊ TEM 1 OFERTA!</div>
 
-                            <button class="btn" style="background:#ff4d4d;" onclick="generatePix()">Finalizar
-                                Compra</button>
+                            <button class="btn" style="background:#ff4d4d;" onclick="generatePix()">COMPRAR
+                                AGORA</button>
                             <p style="font-size:11px; color:var(--text-muted); margin-top:12px;">🔒 Pagamento seguro
                                 processado por Mercado Pago</p>
                         </div>
@@ -845,10 +845,12 @@
                     document.getElementById('pix-qrcode').src = "data:image/jpeg;base64," + data.pix.qrCodeBase64;
 
                 } else {
-                    alert('Erro ao gerar o PIX: ' + (data.error || 'Tente novamente.'));
+                    console.error('ERRO DETALHADO PIX:', data);
+                    alert('Erro ao gerar o PIX: ' + (data.error || 'Tente novamente.') + (data.details ? '\n\nDetalhes: ' + JSON.stringify(data.details) : ''));
                 }
             } catch (err) {
-                alert('Falha na comunicação com o servidor.');
+                console.error('FALHA NA COMUNICAÇÃO:', err);
+                alert('Falha na comunicação com o servidor.\n\nVerifique o console do navegador.');
             } finally {
                 document.getElementById('loading').style.display = 'none';
             }
