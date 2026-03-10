@@ -1464,7 +1464,7 @@
     .notif-bar,
     #vsl-hidden-content,
     .vsl-text-hide {
-      display: none;
+      display: block;
     }
 
     .vsl-msg {
@@ -2118,9 +2118,7 @@
         <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
         <script>
-          // ========== VSL – REVELAR CONTEÚDO APÓS 120 SEGUNDOS ==========
           (function () {
-            var revealTime = 120 * 1000; // 120 segundos
             var hiddenContent = document.getElementById('vsl-hidden-content');
             var announcementBar = document.getElementById('announcement-bar');
             var notifBar = document.querySelector('.notif-bar');
@@ -2143,17 +2141,12 @@
               // Hide the "Ligue o Áudio" message
               if (vslMsg) vslMsg.style.display = 'none';
 
-              // Scroll suave para o produto após revelar
-              setTimeout(function () {
-                hiddenContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }, 300);
-
-              // Inicializar Flickity após revelar o conteúdo
+              // Inicializar Flickity
               initCarousels();
             }
 
-            // Timer de 120 segundos para revelar
-            setTimeout(revealContent, revealTime);
+            // Revelar imediatamente
+            revealContent();
 
             function initCarousels() {
               if (window._carouselsInitialized) return;
