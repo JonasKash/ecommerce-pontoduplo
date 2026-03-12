@@ -932,39 +932,7 @@
     }
 
     /* ========== COUNTDOWN BAR ========== */
-    .countdown-bar {
-      background: #fff8f8;
-      border-bottom: 1px solid #fce4e4;
-      padding: 9px 16px;
-      text-align: center;
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--color-text-muted);
-    }
 
-    .countdown-bar strong { color: var(--color-primary); }
-
-    .countdown {
-      display: inline-flex;
-      gap: 4px;
-      align-items: center;
-      margin-left: 8px;
-    }
-
-    .cd-part {
-      background: var(--color-primary);
-      border-radius: 4px;
-      padding: 2px 7px;
-      font-weight: 700;
-      font-size: 14px;
-      color: #fff;
-      font-variant-numeric: tabular-nums;
-      min-width: 28px;
-      text-align: center;
-    }
-
-    .cd-sep { color: var(--color-primary); font-weight: 700; }
 
     /* ========== LAZY LOAD ========== */
     .lazyload, .lazyloading { opacity: 0; transition: opacity .4s; }
@@ -975,7 +943,7 @@
 <body>
 
   <!-- ========== ANNOUNCEMENT BAR ========== -->
-  <div id="announcement-bar">
+  <div id="announcement-bar" style="display: none;">
     <span>🚚</span> FRETE GRÁTIS PARA TODO O BRASIL
     <span>•</span> PARCELAMOS EM ATÉ 12X
     <span>•</span> EMBALAGEM 100% DISCRETA 🌹
@@ -984,20 +952,10 @@
   <!-- ========== SOCIAL PROOF BAR ========== -->
   <div class="notif-bar">
     <span class="notif-dot"></span>
-    <strong>47 mulheres compraram</strong> nas últimas 3 horas
+    <strong><span id="viewing-count">47</span> mulheres vendo</strong> o vídeo
   </div>
 
-  <!-- ========== COUNTDOWN BAR ========== -->
-  <div class="countdown-bar">
-    ⏰ Oferta expira em:
-    <span class="countdown">
-      <span class="cd-part" id="cd-h">00</span>
-      <span class="cd-sep">:</span>
-      <span class="cd-part" id="cd-m">14</span>
-      <span class="cd-sep">:</span>
-      <span class="cd-part" id="cd-s">59</span>
-    </span>
-  </div>
+
 
   <!-- ========== VSL SECTION ========== -->
   <section class="vsl-section">
@@ -1025,7 +983,7 @@
       </div>
 
       <!-- BOTÃO PARA COMPRA -->
-      <a href="https://ggcheckout.com.br/checkout/v2/pPNlmUfobyM9J2tWbzpc" class="btn-cta" onclick="trackCta()">
+      <a href="https://ggcheckout.com.br/checkout/v2/pPNlmUfobyM9J2tWbzpc" class="btn-cta" onclick="trackCta()" style="display: none;">
         EU QUERO AGORA! 🔥
       </a>
 
@@ -1033,7 +991,7 @@
   </section>
 
   <!-- ========== REST OF PAGE ========== -->
-  <div id="vsl-hidden-content">
+  <div id="vsl-hidden-content" style="display: none;">
 
     <!-- ========== PRODUCT SECTION ========== -->
     <section class="product-section">
@@ -1045,11 +1003,7 @@
             class="lazyload" alt="Rosa Dupla Prazer – Vibrador Duplo Estimulador" style="border-radius:12px;" />
         </div>
 
-        <!-- Badges -->
-        <div class="product-badge-row">
-          <div class="badge-pill">🌹 OFERTA LIMITADA</div>
-          <div class="sold-badge">🔥 47 vendidos hoje</div>
-        </div>
+
 
         <!-- Title -->
         <h1 class="product-title-main">Rosa Dupla Prazer<br><span>Clitóris + Ponto G</span></h1>
@@ -1106,318 +1060,56 @@
       </div>
     </section>
 
-    <!-- ========== BENEFITS SECTION ========== -->
-    <section class="section section--alt">
-      <div class="container">
-        <div class="section-divider"></div>
 
-        <!-- Benefit 1 -->
-        <div class="benefit-block">
-          <span class="benefit-label">Benefício 1</span>
-          <h2>Estimulação Dupla que você <span>nunca sentiu antes</span></h2>
-          <p>
-            A tecnologia de língua no clitóris combinada com os movimentos vai-e-vem no ponto G cria uma experiência
-            de prazer simultâneo única. Não é vibração comum — é estimulação real, precisa e intensa.
-          </p>
-          <img class="benefit-img lazyload" data-src="162895-1-ecea1831c28224416217592368909016-480-0.webp"
-            src="162895-1-ecea1831c28224416217592368909016-480-0.webp"
-            alt="Estimulação dupla clitóris e ponto G" />
-          <ul class="checklist">
-            <li>Língua de silicone que imita estimulação real</li>
-            <li>Movimentos vai-e-vem automáticos no ponto G</li>
-            <li>10+ modos de intensidade para personalizar</li>
-          </ul>
-          <a href="https://ggcheckout.com.br/checkout/v2/pPNlmUfobyM9J2tWbzpc" class="btn-cta-sm" onclick="trackCta()">EU QUERO AGORA! 🔥</a>
-        </div>
-
-        <!-- Benefit 2 -->
-        <div class="benefit-block">
-          <span class="benefit-label">Benefício 2</span>
-          <h2>100% à Prova D'água — <span>Use em qualquer lugar</span></h2>
-          <p>
-            Mergulhe no prazer sem preocupações. O Rosa Dupla Prazer é totalmente waterproof e pode ser usado
-            no banho, na banheira ou onde sua imaginação permitir. Silicone body-safe que não irrita.
-          </p>
-          <img class="benefit-img lazyload" data-src="D_NQ_NP_766636-MLB77712110385_072024-O.webp"
-            src="D_NQ_NP_766636-MLB77712110385_072024-O.webp"
-            alt="Rosa Dupla Prazer 100% waterproof" />
-          <ul class="checklist">
-            <li>Silicone body-safe hipoalergênico</li>
-            <li>100% submersível — banho, banheira, jacuzzi</li>
-            <li>Recarga magnética USB — sem pilhas</li>
-          </ul>
-          <a href="https://ggcheckout.com.br/checkout/v2/pPNlmUfobyM9J2tWbzpc" class="btn-cta-sm" onclick="trackCta()">COMPRAR COM DESCONTO</a>
-        </div>
-
-        <!-- Benefit 3 -->
-        <div class="benefit-block">
-          <span class="benefit-label">Benefício 3</span>
-          <h2>Discreta do jeito que <span>você merece</span></h2>
-          <p>
-            Sua privacidade é nossa prioridade. Embalagem sem identificação do produto, frete discreto para
-            todo o Brasil. Só você sabe o que tem dentro — e vai querer contar para as amigas!
-          </p>
-          <img class="benefit-img lazyload" data-src="br-11134207-7r98o-md52i03uowzlfc.jfif"
-            src="br-11134207-7r98o-md52i03uowzlfc.jfif"
-            alt="Embalagem discreta Rosa Dupla Prazer" />
-          <ul class="checklist">
-            <li>Embalagem 100% neutra, sem identificação</li>
-            <li>Entrega em até 5 dias úteis</li>
-            <li>Rastreamento pelo CPF</li>
-          </ul>
-          <a href="https://ggcheckout.com.br/checkout/v2/pPNlmUfobyM9J2tWbzpc" class="btn-cta-sm" onclick="trackCta()">EU QUERO O MEU! 🔥</a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========== TESTIMONIALS SECTION ========== -->
-    <section class="testimonials-section">
-      <div class="container">
-        <div class="section-divider"></div>
-        <h2 class="section-title">O que nossas <span>Clientes Dizem</span></h2>
-        <p class="section-subtitle">Avaliações verificadas de compradoras reais</p>
-
-        <div class="testimonial-card">
-          <div class="testimonial-top">
-            <div class="testimonial-avatar">L</div>
-            <div>
-              <div class="testimonial-name">Larissa M.</div>
-              <div class="testimonial-meta">São Paulo, SP · 10 Fev 2025</div>
-            </div>
-          </div>
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Gostei demais, foi muito além das expectativas! A estimulação dupla é uma experiência que não sei descrever com palavras. Chegou em 4 dias em embalagem totalmente discreta. Recomendo de olhos fechados!"</p>
-          <span class="verified-badge">✓ Compra Verificada</span>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="testimonial-top">
-            <div class="testimonial-avatar">R</div>
-            <div>
-              <div class="testimonial-name">Roseli S.</div>
-              <div class="testimonial-meta">Rio de Janeiro, RJ · 25 Jan 2025</div>
-            </div>
-          </div>
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Toda mulher precisa de um desse, aproveitem meninas! O vai-e-vem no ponto G enquanto a língua trabalha no clitóris é simplesmente surreal. Nunca mais fico sem o meu!"</p>
-          <span class="verified-badge">✓ Compra Verificada</span>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="testimonial-top">
-            <div class="testimonial-avatar">C</div>
-            <div>
-              <div class="testimonial-name">Clara V.</div>
-              <div class="testimonial-meta">Belo Horizonte, MG · 3 Mar 2025</div>
-            </div>
-          </div>
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Chegou rapidinho e funcionou muito melhor do que esperava! Usei no banho mesmo e perfeito. Os 10 modos de vibração fazem diferença — sempre tem um que cabe no momento. Meu segundo já!"</p>
-          <span class="verified-badge">✓ Compra Verificada</span>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="testimonial-top">
-            <div class="testimonial-avatar">A</div>
-            <div>
-              <div class="testimonial-name">Ana F.</div>
-              <div class="testimonial-meta">Curitiba, PR · 18 Fev 2025</div>
-            </div>
-          </div>
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Comprei com receio e me arrependo de não ter comprado antes! O silicone é ultra macio, não irrita nada. A estimulação de língua no clitóris é a coisa mais realista que já experimentei. Vale muito o investimento!"</p>
-          <span class="verified-badge">✓ Compra Verificada</span>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="testimonial-top">
-            <div class="testimonial-avatar">F</div>
-            <div>
-              <div class="testimonial-name">Fernanda C.</div>
-              <div class="testimonial-meta">Porto Alegre, RS · 28 Fev 2025</div>
-            </div>
-          </div>
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Presentei minha melhor amiga e ela me ligou na mesma noite para agradecer! O design de rosa é lindo e discreto. Bateria dura muito mais do que imaginava. Produto muito bem feito, parece importado de luxo."</p>
-          <span class="verified-badge">✓ Compra Verificada</span>
-        </div>
-
-        <!-- CTA after testimonials -->
-        <div style="text-align:center; margin-top:28px;">
-          <a href="https://ggcheckout.com.br/checkout/v2/pPNlmUfobyM9J2tWbzpc" class="btn-cta-sm" onclick="trackCta()">EU QUERO O MEU AGORA! 🔥</a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========== PRICE + CTA SECTION ========== -->
-    <section class="price-cta-section">
-      <div class="container">
-        <div class="section-divider"></div>
-        <h2 class="section-title" style="margin-bottom:24px;">Garanta o Seu <span>Agora</span></h2>
-
-        <div class="price-block">
-          <div class="price-label">Preço especial hoje:</div>
-          <div class="price-old">De: R$ 134,00</div>
-          <div class="price-new"><sup>R$</sup>67<sup style="font-size:22px;vertical-align:top;margin-top:10px">,00</sup></div>
-          <div class="price-installments">ou <strong>12x de R$ 6,59</strong> no cartão</div>
-          <div class="discount-tag">50% OFF – Estoque Limitado!</div>
-        </div>
-
-        <a href="https://ggcheckout.com.br/checkout/v2/pPNlmUfobyM9J2tWbzpc" class="btn-cta" onclick="trackCta()">
-          🛒 GARANTIR MEU DESCONTO AGORA
-        </a>
-
-        <div class="mini-guarantees">
-          <div class="mini-g-item"><span class="mini-g-icon">🔒</span> Compra 100% Segura</div>
-          <div class="mini-g-item"><span class="mini-g-icon">📦</span> Embalagem Discreta</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== GUARANTEE SECTION ========== -->
-    <section class="guarantee-section">
-      <div class="container">
-        <div class="section-divider"></div>
-        <h2 class="section-title" style="margin-bottom:20px;">Garantia <span>Total</span> de Satisfação</h2>
-
-        <div class="guarantee-badge">
-          <div class="days">7</div>
-          <div class="days-label">DIAS</div>
-          <div class="guarantee-text">GARANTIA</div>
-        </div>
-
-        <p class="guarantee-desc">
-          Não ficou 100% satisfeita? Devolvemos seu dinheiro integralmente, sem perguntas.
-          Você tem <strong>7 dias</strong> de garantia completa depois da entrega.
-          Zero risco para você.
-        </p>
-      </div>
-    </section>
-
-    <!-- ========== FAQ SECTION ========== -->
-    <section class="faq-section">
-      <div class="container">
-        <div class="section-divider"></div>
-        <h2 class="section-title" style="margin-bottom:24px;">Dúvidas <span>Frequentes</span></h2>
-
-        <div class="faq-item">
-          <button class="faq-question">A embalagem é realmente discreta?</button>
-          <div class="faq-answer">
-            <p>Sim! A embalagem é 100% neutra, sem qualquer identificação do produto ou da nossa loja. Ninguém saberá o que há dentro — só você.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">Em quanto tempo chega?</button>
-          <div class="faq-answer">
-            <p>A entrega é feita em até 5 dias úteis para todo o Brasil. Você recebe o código de rastreamento por e-mail assim que o pedido sair.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">O produto é realmente à prova d'água?</button>
-          <div class="faq-answer">
-            <p>Sim! O Rosa Dupla Prazer é 100% submersível. Pode ser usado no banho, na banheira ou na piscina sem nenhum problema.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">Como funciona a garantia de 7 dias?</button>
-          <div class="faq-answer">
-            <p>Se por qualquer motivo você não ficar satisfeita, basta nos contatar em até 7 dias após o recebimento e devolvemos 100% do valor pago. Sem burocracia.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">Quais formas de pagamento são aceitas?</button>
-          <div class="faq-answer">
-            <p>Aceitamos PIX (com desconto especial), cartão de crédito em até 12x, boleto bancário, cartões Visa, Mastercard, Elo e American Express.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">O material é seguro?</button>
-          <div class="faq-answer">
-            <p>Sim! O Rosa Dupla Prazer é feito de silicone body-safe, hipoalergênico, sem ftalatos. É o mesmo padrão dos produtos importados de luxo, seguro para uso íntimo.</p>
-          </div>
-        </div>
-
-        <!-- CTA after FAQ -->
-        <div style="text-align:center; margin-top:32px;">
-          <a href="https://ggcheckout.com.br/checkout/v2/pPNlmUfobyM9J2tWbzpc" class="btn-cta-sm" onclick="trackCta()">EU QUERO AGORA! 🔥</a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========== TRUST BADGES ========== -->
-    <section class="trust-section">
-      <div class="container">
-        <div class="trust-grid">
-          <div class="trust-item">
-            <div class="trust-icon">🔒</div>
-            <div class="trust-label">Compra 100% Segura</div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon">🚚</div>
-            <div class="trust-label">Frete Grátis Brasil</div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon">🛡️</div>
-            <div class="trust-label">Garantia 7 Dias</div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon">📦</div>
-            <div class="trust-label">Embalagem Discreta</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== FOOTER ========== -->
-    <footer>
-      <div class="container">
-        <div class="footer-logo">PONTO<span>DUPLO</span></div>
-        <p class="footer-desc">Sua loja de produtos premium para o prazer feminino. Qualidade, discrição e entrega segura para todo o Brasil.</p>
-        <div class="footer-links">
-          <a href="#">Sobre Nós</a>
-          <a href="#">Política de Privacidade</a>
-          <a href="#">Termos de Uso</a>
-          <a href="#">Trocas e Devoluções</a>
-          <a href="#">Central de Ajuda</a>
-        </div>
-        <div class="footer-bottom">
-          <p>© 2025 PontoDuplo. Todos os direitos reservados. CNPJ: XX.XXX.XXX/0001-XX</p>
-          <div class="payment-row" style="justify-content:center; margin-top:10px;">
-            <span class="pay-icon">VISA</span>
-            <span class="pay-icon">MSTR</span>
-            <span class="pay-icon">PIX</span>
-            <span class="pay-icon">ELO</span>
-            <span class="pay-icon">BOLETO</span>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- ========== STICKY CTA (Mobile) ========== -->
-    <div class="sticky-cta" id="sticky-cta" style="display:none;">
-      <div class="sticky-price">
-        <span class="from">R$ 134,00</span>
-        <span class="now">R$ 67,00</span>
-      </div>
-      <a href="https://ggcheckout.com.br/checkout/v2/pPNlmUfobyM9J2tWbzpc" class="btn-cta" onclick="trackCta()">🛒 COMPRAR AGORA</a>
-    </div>
 
   </div><!-- end vsl-hidden-content -->
 
   <!-- ========== SCRIPTS ========== -->
   <script>
-    // Reveal content immediately
+    // Reveal content after 180 seconds (3 minutes)
     (function () {
+      var delaySeconds = 180;
       var hiddenContent = document.getElementById('vsl-hidden-content');
-      if (hiddenContent) hiddenContent.style.display = 'block';
+      var announcementBar = document.getElementById('announcement-bar');
+      var vslCta = document.querySelector('.vsl-section .btn-cta');
+      
+      setTimeout(function() {
+        if (hiddenContent) hiddenContent.style.display = 'block';
+        if (announcementBar) announcementBar.style.display = 'block';
+        if (vslCta) vslCta.style.display = 'flex';
+        if (vslCta && window.getComputedStyle(vslCta).display === 'none') {
+            vslCta.style.display = 'block';
+        }
+      }, delaySeconds * 1000);
+    })();
+
+    // Oscillating viewing counter (47 to 52)
+    (function () {
+      var countElement = document.getElementById('viewing-count');
+      if (!countElement) return;
+      
+      var min = 47;
+      var max = 52;
+      var current = 47;
+      var increasing = true;
+
+      function updateCounter() {
+        if (increasing) {
+          current++;
+          if (current >= max) increasing = false;
+        } else {
+          current--;
+          if (current <= min) increasing = true;
+        }
+        
+        countElement.textContent = current;
+        
+        // Random time between 8 and 20 seconds for next update to feel more real
+        var nextUpdate = Math.floor(Math.random() * 12000) + 8000;
+        setTimeout(updateCounter, nextUpdate);
+      }
+      
+      updateCounter();
     })();
 
     // FAQ Accordion
@@ -1439,21 +1131,7 @@
       });
     });
 
-    // Countdown Timer
-    (function () {
-      var endTime = Date.now() + (14 * 60 + 59) * 1000;
-      function updateCountdown() {
-        var diff = Math.max(0, endTime - Date.now());
-        var h = Math.floor(diff / 3600000);
-        var m = Math.floor((diff % 3600000) / 60000);
-        var s = Math.floor((diff % 60000) / 1000);
-        document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
-        document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
-        document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
-        if (diff > 0) requestAnimationFrame(updateCountdown);
-      }
-      updateCountdown();
-    })();
+
 
     // FB Pixel Tracking
     function trackCta() {
