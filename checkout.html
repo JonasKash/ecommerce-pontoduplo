@@ -530,7 +530,7 @@
                                 style="background:#fff7b0; color:#8a6d3b; padding:10px; border-radius:6px; font-size:12px; font-weight:700; display:inline-block; margin-bottom:20px;">
                                 🎉 VOCÊ TEM 1 OFERTA!</div>
 
-                            <button class="btn" style="background:#ff4d4d;" onclick="generatePix()">COMPRAR
+                            <button class="btn" style="background:#ff4d4d;" onclick="trackAndGeneratePix()">COMPRAR
                                 AGORA</button>
                             <p style="font-size:11px; color:var(--text-muted); margin-top:12px;">🔒 Pagamento seguro
                                 processado por Mercado Pago</p>
@@ -808,6 +808,24 @@
 
             document.getElementById('step3-box').classList.add('active');
             await captureLead('checkout_step2');
+        }
+
+        function trackAndGeneratePix() {
+            if (typeof fbq === 'function') {
+                fbq('track', 'AddToCart', {
+                    content_ids: ['rosaduplaprazer'],
+                    content_type: 'product',
+                    value: 67.00,
+                    currency: 'BRL'
+                });
+                fbq('track', 'InitiateCheckout', {
+                    content_ids: ['rosaduplaprazer'],
+                    content_type: 'product',
+                    value: 67.00,
+                    currency: 'BRL'
+                });
+            }
+            generatePix();
         }
 
         async function generatePix() {
